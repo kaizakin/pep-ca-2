@@ -12,8 +12,8 @@ export function AuthCallback({ onAuthenticated }: AuthCallbackProps) {
 
     if (token) {
       setToken(token);
-      window.history.replaceState({}, document.title, '/');
       onAuthenticated();
+      window.location.replace('/dashboard');
     }
   }, [onAuthenticated]);
 

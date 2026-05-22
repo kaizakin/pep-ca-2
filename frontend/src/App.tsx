@@ -28,6 +28,7 @@ export default function App() {
   const [query, setQuery] = useState('');
   const [loadState, setLoadState] = useState<LoadState>('idle');
   const [message, setMessage] = useState('');
+  const pathname = window.location.pathname;
 
   const bootstrap = useCallback(async () => {
     if (!getToken()) {
@@ -56,8 +57,10 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    void bootstrap();
-  }, [bootstrap, token]);
+    if (pathname === '/dashboard') {
+      void bootstrap();
+    }
+  }, [bootstrap, pathname, token]);
 
   const selectedRepository = repositories.find((repository) => repository.fullName === selectedFullName);
   const selectedAnalytics = analytics.find((item) => item.fullName === selectedFullName);
@@ -66,8 +69,12 @@ export default function App() {
     [repositories, query]
   );
 
-  if (window.location.pathname === '/auth/callback') {
+  if (pathname === '/auth/callback') {
     return <AuthCallback onAuthenticated={() => setTokenState(getToken())} />;
+  }
+
+  if (pathname !== '/dashboard') {
+    return <Login isAuthenticated={Boolean(token)} />;
   }
 
   if (!token) {
@@ -115,6 +122,7 @@ export default function App() {
     setUser(null);
     setRepositories([]);
     setAnalytics([]);
+    window.location.href = '/';
   }
 
   return (

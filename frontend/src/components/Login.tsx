@@ -34,7 +34,13 @@ const features = [
   }
 ];
 
-export function Login() {
+type LoginProps = {
+  isAuthenticated?: boolean;
+};
+
+export function Login({ isAuthenticated = false }: LoginProps) {
+  const ctaHref = isAuthenticated ? '/dashboard' : getGitHubLoginUrl();
+
   return (
     <main className="min-h-screen overflow-hidden bg-[#f7f7f5] font-mono text-[#151515]">
       <header className="mx-auto flex max-w-6xl items-center justify-between border-b border-[#e7e5df] px-6 py-5">
@@ -44,10 +50,10 @@ export function Login() {
             Features
           </a>
           <a
-            href={getGitHubLoginUrl()}
+            href={ctaHref}
             className="rounded-lg bg-[#171717] px-4 py-2.5 text-sm font-bold text-white shadow-[0_12px_30px_rgba(0,0,0,0.12)] transition hover:bg-black"
           >
-            Log in
+            Analyze my GitHub stats
           </a>
           <a href="https://github.com" className="hidden items-center gap-1 text-[#44413c] sm:flex" aria-label="GitHub">
             <Github size={16} />
@@ -84,11 +90,11 @@ export function Login() {
             sprint noise into scannable AI insights.
           </p>
           <a
-            href={getGitHubLoginUrl()}
+            href={ctaHref}
             className="mt-8 inline-flex items-center gap-2 rounded-xl border border-[#171717] bg-[#171717] px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:shadow-[0_16px_35px_rgba(0,0,0,0.16)]"
           >
             <Github size={17} />
-            Continue with GitHub
+            Analyze my GitHub stats
           </a>
         </div>
       </section>
