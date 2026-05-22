@@ -126,24 +126,24 @@ export default function App() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100">
-      <div className="mx-auto flex max-w-7xl gap-6 px-6 py-8">
-        <aside className="hidden w-80 shrink-0 flex-col rounded-3xl border border-slate-800 bg-slate-900/60 p-5 lg:flex">
-          <div className="mb-6 flex items-center gap-3">
-            <img src={user?.avatarUrl} alt="" className="h-11 w-11 rounded-2xl border border-slate-700" />
+    <main className="min-h-screen bg-[#f7f7f5] font-mono text-[#151515]">
+      <div className="mx-auto flex max-w-7xl gap-5 px-6 py-6">
+        <aside className="hidden w-80 shrink-0 flex-col border border-[#ece9e2] bg-white p-5 shadow-[0_18px_45px_rgba(20,20,20,0.04)] lg:flex">
+          <div className="mb-6 flex items-center gap-3 border-b border-[#ece9e2] pb-5">
+            <img src={user?.avatarUrl} alt="" className="h-11 w-11 border border-[#e7e5df] bg-[#fbfaf7]" />
             <div>
-              <p className="font-bold">{user?.login}</p>
-              <p className="text-xs text-slate-400">GitHub connected</p>
+              <p className="font-black tracking-[-0.06em]">{user?.login}</p>
+              <p className="text-xs text-[#77736b]">GitHub connected</p>
             </div>
           </div>
 
           <div className="relative mb-4">
-            <Search className="absolute left-3 top-3 text-slate-500" size={16} />
+            <Search className="absolute left-3 top-3 text-[#8b8880]" size={16} />
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Search repositories"
-              className="w-full rounded-2xl border border-slate-800 bg-slate-950 py-2.5 pl-9 pr-3 text-sm outline-none ring-cyan-400/30 focus:ring-4"
+              className="w-full border border-[#ece9e2] bg-[#fbfaf7] py-2.5 pl-9 pr-3 text-sm text-[#151515] outline-none ring-[#d7d2c6]/40 placeholder:text-[#a8a39a] focus:ring-4"
             />
           </div>
 
@@ -152,10 +152,10 @@ export default function App() {
               <button
                 key={repository.fullName}
                 onClick={() => setSelectedFullName(repository.fullName)}
-                className={`w-full rounded-2xl px-4 py-3 text-left text-sm transition ${
+                className={`w-full border px-4 py-3 text-left text-sm transition ${
                   selectedFullName === repository.fullName
-                    ? 'bg-cyan-300 font-bold text-slate-950'
-                    : 'bg-slate-950/70 text-slate-300 hover:bg-slate-800'
+                    ? 'border-[#151515] bg-[#151515] font-black text-white'
+                    : 'border-[#ece9e2] bg-[#fbfaf7] text-[#55514b] hover:border-[#151515] hover:text-[#151515]'
                 }`}
               >
                 {repository.fullName}
@@ -164,36 +164,42 @@ export default function App() {
           </div>
         </aside>
 
-        <section className="min-w-0 flex-1 space-y-6">
-          <header className="rounded-3xl border border-slate-800 bg-[radial-gradient(circle_at_top_right,#164e63,#0f172a_45%,#020617)] p-6 shadow-2xl shadow-slate-950/20">
+        <section className="min-w-0 flex-1 space-y-5">
+          <header className="border border-[#ece9e2] bg-white p-6 shadow-[0_18px_45px_rgba(20,20,20,0.04)]">
             <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
               <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.35em] text-cyan-300">DevTrackr</p>
-                <h1 className="mt-3 text-4xl font-black tracking-tight">{selectedFullName || 'Select a repository'}</h1>
-                <p className="mt-3 max-w-2xl text-slate-300">
+                <p className="text-xs font-bold uppercase tracking-[0.36em] text-[#8b8880]">DevTrackr</p>
+                <h1 className="mt-3 text-4xl font-black tracking-[-0.08em] text-[#151515]">{selectedFullName || 'Select a repository'}</h1>
+                <p className="mt-3 max-w-2xl text-sm leading-7 text-[#686660]">
                   Cached sprint intelligence powered by GitHub activity aggregation and Gemini structured outputs.
                 </p>
               </div>
               <div className="flex flex-wrap gap-3">
-                <button onClick={handleSyncRepositories} className="rounded-2xl border border-slate-700 px-4 py-3 text-sm font-bold text-slate-200 hover:bg-slate-800">
+                <button
+                  onClick={handleSyncRepositories}
+                  className="border border-[#ece9e2] bg-[#fbfaf7] px-4 py-3 text-sm font-bold text-[#151515] transition hover:border-[#151515]"
+                >
                   Sync repos
                 </button>
                 <button
                   onClick={handleRefresh}
                   disabled={!selectedRepository || loadState === 'loading'}
-                  className="inline-flex items-center gap-2 rounded-2xl bg-cyan-300 px-4 py-3 text-sm font-black text-slate-950 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="inline-flex items-center gap-2 border border-[#151515] bg-[#151515] px-4 py-3 text-sm font-black text-white transition disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <RefreshCw size={16} className={loadState === 'loading' ? 'animate-spin' : ''} />
                   Refresh analytics
                 </button>
-                <button onClick={handleSignOut} className="inline-flex items-center gap-2 rounded-2xl border border-slate-700 px-4 py-3 text-sm font-bold text-slate-200 hover:bg-slate-800">
+                <button
+                  onClick={handleSignOut}
+                  className="inline-flex items-center gap-2 border border-[#ece9e2] bg-[#fbfaf7] px-4 py-3 text-sm font-bold text-[#151515] transition hover:border-[#151515]"
+                >
                   <LogOut size={16} />
                   Sign out
                 </button>
               </div>
             </div>
             {message ? (
-              <p className={`mt-5 rounded-2xl border px-4 py-3 text-sm ${loadState === 'error' ? 'border-rose-400/30 bg-rose-400/10 text-rose-200' : 'border-cyan-400/30 bg-cyan-400/10 text-cyan-100'}`}>
+              <p className={`mt-5 border px-4 py-3 text-sm ${loadState === 'error' ? 'border-[#151515] bg-white text-[#151515]' : 'border-[#ece9e2] bg-[#fbfaf7] text-[#55514b]'}`}>
                 {message}
               </p>
             ) : null}
@@ -211,9 +217,9 @@ export default function App() {
               <AiInsights analytics={selectedAnalytics} />
             </>
           ) : (
-            <div className="rounded-3xl border border-dashed border-slate-700 bg-slate-900/40 p-10 text-center">
-              <h2 className="text-2xl font-black text-white">No cached analytics yet</h2>
-              <p className="mx-auto mt-3 max-w-xl text-slate-400">
+            <div className="border border-dashed border-[#d7d2c6] bg-white p-10 text-center shadow-[0_18px_45px_rgba(20,20,20,0.04)]">
+              <h2 className="text-2xl font-black tracking-[-0.08em] text-[#151515]">No cached analytics yet</h2>
+              <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-[#686660]">
                 Choose a repository and click “Refresh analytics” to run the Octokit aggregation worker and generate Gemini insights.
               </p>
             </div>
