@@ -13,7 +13,7 @@ const envSchema = z.object({
   GITHUB_CLIENT_ID: z.string().min(1),
   GITHUB_CLIENT_SECRET: z.string().min(1),
   GITHUB_WEBHOOK_SECRET: z.string().optional().default(''),
-  GEMINI_API_KEY: z.string().min(1),
+  OPENROUTER_API_KEY: z.string().min(1),
   ANALYTICS_CRON: z.string().default('*/15 * * * *')
 });
 

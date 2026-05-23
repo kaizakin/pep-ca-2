@@ -3,7 +3,7 @@ import { User } from '../models/User.js';
 import { RepositoryAnalytics } from '../models/RepositoryAnalytics.js';
 import { decryptToken } from '../services/crypto.js';
 import { aggregateRepositoryActivity } from '../services/github.js';
-import { generateSprintAnalytics } from '../services/gemini.js';
+import { generateSprintAnalytics } from '../services/ai.js';
 import { env } from '../config/env.js';
 
 const DEFAULT_SPRINT_DAYS = 14;
