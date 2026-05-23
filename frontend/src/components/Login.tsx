@@ -54,7 +54,7 @@ export function Login({ isAuthenticated = false }: LoginProps) {
 
           <div className="flex items-center gap-4">
             <a href="https://github.com" className="hidden sm:flex items-center gap-2 rounded-lg bg-[#1a1c21] border border-[#2a2d35] px-3 py-1.5 text-xs font-semibold text-[#a1a6b0] hover:text-white transition-colors">
-              <span className="text-yellow-500 text-sm">★</span> 1,714
+              <span className="text-yellow-500 text-sm">★</span> 0
             </a>
             <a
               href={ctaHref}
