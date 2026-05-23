@@ -1,36 +1,27 @@
-import { BarChart3, Bot, Github, GitPullRequest, Shield, Zap } from 'lucide-react';
+import { useState } from 'react';
+import { Bot, Github, GitPullRequest, Shield, Zap, Plus } from 'lucide-react';
 import { getGitHubLoginUrl } from '../lib/api';
 
 const features = [
   {
     icon: Shield,
-    title: 'GitHub Authentication',
-    body: 'Secure sign-in with your GitHub account. Tokens are encrypted before storage.'
+    title: 'Secure GitHub Authentication',
+    body: 'Sign in securely with your GitHub account. All tokens are encrypted with AES-256 before storage.'
   },
   {
     icon: GitPullRequest,
-    title: 'Repository Ingestion',
-    body: 'Collect commits, PR lifecycle data, issue labels, and review bottlenecks.'
+    title: 'Deep Repository Ingestion',
+    body: 'Collect commits, PR lifecycle data, issue labels, and review bottlenecks directly from the GitHub API.'
   },
   {
     icon: Bot,
-    title: 'Gemini Insights',
-    body: 'Generate structured sprint summaries, risks, and prioritized recommendations.'
-  },
-  {
-    icon: BarChart3,
-    title: 'Visual Analytics',
-    body: 'Track velocity, work distribution, and PR cycle time with clean dashboard charts.'
+    title: 'Gemini AI Insights',
+    body: 'Generate structured sprint summaries, identify key risks, and get prioritized recommendations instantly.'
   },
   {
     icon: Zap,
-    title: 'Cached Results',
-    body: 'Serve analytics instantly from MongoDB instead of blocking on long AI requests.'
-  },
-  {
-    icon: Github,
-    title: 'Webhook Ready',
-    body: 'Mark repositories stale from GitHub events and avoid aggressive polling.'
+    title: 'Lightning Fast Cached Results',
+    body: 'Serve analytics instantly from our MongoDB cache instead of blocking on slow, long-running AI requests.'
   }
 ];
 
@@ -40,105 +31,106 @@ type LoginProps = {
 
 export function Login({ isAuthenticated = false }: LoginProps) {
   const ctaHref = isAuthenticated ? '/dashboard' : getGitHubLoginUrl();
+  const [openFeature, setOpenFeature] = useState<number | null>(0);
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#f7f7f5] font-mono text-[#151515]">
-      <header className="mx-auto flex max-w-6xl items-center justify-between border-b border-[#e7e5df] px-6 py-5">
-        <div className="text-2xl font-black tracking-[-0.18em]">dt</div>
-        <nav className="flex items-center gap-6 text-xs font-semibold text-[#686660]">
-          <a href="#features" className="hidden hover:text-[#151515] sm:inline">
-            Features
-          </a>
-          <a
-            href={ctaHref}
-            className="rounded-lg bg-[#171717] px-4 py-2.5 text-sm font-bold text-white shadow-[0_12px_30px_rgba(0,0,0,0.12)] transition hover:bg-black"
-          >
-            Analyze my GitHub stats
-          </a>
-          <a href="https://github.com" className="hidden items-center gap-1 text-[#44413c] sm:flex" aria-label="GitHub">
-            <Github size={16} />
-            <span>1</span>
-          </a>
-        </nav>
-      </header>
+    <main className="min-h-screen bg-brand-dark text-white font-sans selection:bg-brand-orange/30 flex flex-col">
+      <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-[800px] px-4">
+        <header className="flex items-center justify-between rounded-full border border-[#23272e] bg-[#111317]/80 backdrop-blur-xl px-4 py-3 shadow-2xl">
+          <div className="flex items-center gap-3">
+             <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-brand-orange to-pink-500 shadow-inner">
+               <Zap size={16} className="text-white fill-white" />
+             </div>
+          </div>
+          
+          <nav className="flex items-center gap-8 text-[13px] font-semibold text-[#8a8f98]">
+            <a href="#features" className="hover:text-white transition-colors">
+              Features
+            </a>
+            <a href="#faq" className="hover:text-white transition-colors">
+              FAQ
+            </a>
+          </nav>
 
-      <section className="relative mx-auto max-w-6xl px-6 pb-16 pt-10">
-        <div className="absolute left-1/2 top-0 h-[420px] w-[920px] -translate-x-1/2 rounded-full bg-white blur-3xl" />
+          <div className="flex items-center gap-4">
+            <a href="https://github.com" className="hidden sm:flex items-center gap-2 rounded-lg bg-[#1a1c21] border border-[#2a2d35] px-3 py-1.5 text-xs font-semibold text-[#a1a6b0] hover:text-white transition-colors">
+              <span className="text-yellow-500 text-sm">★</span> 1,714
+            </a>
+            <a
+              href={ctaHref}
+              className="flex items-center gap-2 rounded-lg bg-[#df8b5b] px-4 py-2 text-[13px] font-bold text-black transition-transform hover:bg-[#e6986b]"
+            >
+              <span className="hidden sm:inline">Connect</span> GitHub
+            </a>
+          </div>
+        </header>
+      </div>
 
-        <div className="relative mx-auto max-w-4xl rounded-[1.4rem] border border-[#ece9e2] bg-white/80 p-3 shadow-[0_25px_90px_rgba(20,20,20,0.08)]">
-          <div className="grid min-h-[270px] grid-cols-1 overflow-hidden rounded-[1rem] border border-[#ece9e2] bg-[#fbfaf7] md:grid-cols-[1fr_1.05fr_1fr]">
-            <div className="hidden border-r border-[#ece9e2] bg-gradient-to-r from-[#fbfaf7] to-white md:block" />
+      <div className="flex-1">
+        <section className="relative mx-auto max-w-4xl px-6 pb-20 pt-52 flex flex-col items-center text-center">
+          <div className="absolute left-1/2 top-40 h-[300px] w-[500px] -translate-x-1/2 rounded-full bg-[#df8b5b]/10 blur-[120px] pointer-events-none" />
 
-            <div className="flex flex-col items-center justify-center gap-3 border-x border-[#ece9e2] bg-white px-4 py-7">
-              <div className="h-2 w-40 rounded-full bg-[#f0eee8]" />
-              <PreviewCard title="Sprint Velocity" subtitle="main · last 14 days" metric="+12.4k" />
-              <PreviewCard title="PR Cycle Time" subtitle="review bottlenecks" metric="18h" />
-              <PreviewCard title="AI Recommendations" subtitle="Gemini structured output" metric="HIGH" />
-            </div>
+          <div className="relative z-10 w-full">
+            <h1 className="text-6xl md:text-7xl font-bold tracking-[-0.04em] mb-6 leading-[1.1]">
+              Everything your sprint <br/> 
+              <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#df8b5b] to-[#b86d42]">needs.</span>
+            </h1>
+            <p className="mx-auto max-w-xl text-[17px] text-[#8a8f98] mb-12 leading-relaxed">
+              A clean, mechanics-first dashboard for GitHub teams. Sync repository activity, cache analytics, and turn
+              sprint noise into scannable AI insights.
+            </p>
+          </div>
+        </section>
 
-            <div className="flex items-center justify-center bg-gradient-to-l from-[#fbfaf7] to-white px-8 text-right text-xs text-[#55514b]">
-              Connect GitHub repos to DevTrackr
-            </div>
+        <section id="features" className="relative z-10 mx-auto w-full max-w-[700px] px-6 pb-32">
+          <div className="flex flex-col gap-4">
+            {features.map((feature, idx) => {
+              const isOpen = openFeature === idx;
+              return (
+                <button
+                  key={feature.title}
+                  onClick={() => setOpenFeature(isOpen ? null : idx)}
+                  className={`group flex flex-col rounded-2xl border transition-all duration-300 text-left overflow-hidden ${
+                    isOpen 
+                      ? 'border-[#2d323a] bg-gradient-to-b from-[#1c2025] to-[#15181c]' 
+                      : 'border-[#1f2329] bg-[#15181c] hover:bg-[#1c2025] hover:border-[#2d323a]'
+                  }`}
+                >
+                  <div className="flex w-full items-center justify-between p-5 md:p-6">
+                    <span className="text-[15px] md:text-[17px] font-medium text-[#e2e8f0]">{feature.title}</span>
+                    <Plus className={`text-[#df8b5b] shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`} size={20} />
+                  </div>
+                  <div 
+                    className={`px-5 md:px-6 overflow-hidden transition-all duration-300 ease-in-out ${
+                      isOpen ? 'max-h-40 pb-6 opacity-100' : 'max-h-0 opacity-0'
+                    }`}
+                  >
+                    <p className="text-[15px] text-[#8a8f98] leading-relaxed">
+                      {feature.body}
+                    </p>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+      </div>
+
+      <footer className="bg-[#e68f5e] w-full text-[#111317]">
+        <div className="mx-auto flex flex-col md:flex-row justify-between items-end gap-10 px-6 lg:px-12 py-16 w-full max-w-screen-2xl">
+          <div className="w-full md:w-auto text-left">
+            <h2 className="text-[16vw] md:text-[12vw] leading-[0.8] font-bold tracking-tight">
+              DevTrackr
+            </h2>
+          </div>
+          <div className="flex flex-col gap-3 text-[17px] font-medium text-[#111317]/80 shrink-0 pb-2 md:pb-4 self-start md:self-end text-left md:text-right">
+            <a href="https://github.com" className="hover:text-black transition-colors">Github</a>
+            <a href="https://twitter.com" className="hover:text-black transition-colors">Twitter</a>
+            <a href="https://discord.com" className="hover:text-black transition-colors">Discord</a>
           </div>
         </div>
-
-        <div className="relative mt-28 max-w-2xl">
-          <p className="mb-4 text-xs font-bold uppercase tracking-[0.36em] text-[#8b8880]">DevTrackr</p>
-          <h1 className="text-4xl font-black leading-tight tracking-[-0.08em] sm:text-5xl">Everything your sprint needs.</h1>
-          <p className="mt-5 max-w-xl text-sm leading-7 text-[#686660]">
-            A clean, mechanics-first dashboard for GitHub teams. Sync repository activity, cache analytics, and turn
-            sprint noise into scannable AI insights.
-          </p>
-          <a
-            href={ctaHref}
-            className="mt-8 inline-flex items-center gap-2 rounded-xl border border-[#171717] bg-[#171717] px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:shadow-[0_16px_35px_rgba(0,0,0,0.16)]"
-          >
-            <Github size={17} />
-            Analyze my GitHub stats
-          </a>
-        </div>
-      </section>
-
-      <section id="features" className="mx-auto max-w-6xl px-6 pb-12">
-        <div className="grid border border-[#ece9e2] bg-white md:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature) => {
-            const Icon = feature.icon;
-            return (
-              <article key={feature.title} className="min-h-36 border-b border-r border-[#ece9e2] p-6 last:border-r-0">
-                <div className="mb-4 flex items-center gap-3">
-                  <Icon size={17} strokeWidth={1.8} />
-                  <h2 className="text-sm font-black tracking-[-0.05em]">{feature.title}</h2>
-                </div>
-                <p className="max-w-xs text-sm leading-6 text-[#77736b]">{feature.body}</p>
-              </article>
-            );
-          })}
-        </div>
-      </section>
+      </footer>
     </main>
   );
 }
 
-type PreviewCardProps = {
-  title: string;
-  subtitle: string;
-  metric: string;
-};
-
-function PreviewCard({ title, subtitle, metric }: PreviewCardProps) {
-  return (
-    <div className="grid w-full max-w-[270px] grid-cols-[88px_1fr] gap-4 rounded-lg border border-[#ece9e2] bg-white p-3 shadow-[0_12px_32px_rgba(20,20,20,0.06)]">
-      <div className="flex h-16 items-end gap-1 rounded bg-[#f3f1eb] p-2">
-        <span className="h-5 w-3 rounded-sm bg-[#d7d2c6]" />
-        <span className="h-8 w-3 rounded-sm bg-[#bbb4a6]" />
-        <span className="h-11 w-3 rounded-sm bg-[#151515]" />
-        <span className="h-7 w-3 rounded-sm bg-[#d7d2c6]" />
-      </div>
-      <div className="min-w-0 py-1">
-        <p className="truncate text-[11px] font-black tracking-[-0.04em]">{title}</p>
-        <p className="mt-1 truncate text-[10px] text-[#77736b]">{subtitle}</p>
-        <p className="mt-3 text-xs font-black">{metric}</p>
-      </div>
-    </div>
-  );
-}

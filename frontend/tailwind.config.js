@@ -4,8 +4,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: '#0f172a',
-        panel: '#111827'
+        brand: {
+          orange: '#e68f5e',
+          dark: '#0a0a0a',
+          panel: '#151a1e',
+          border: '#272f38',
+          text: '#9ca3af',
+        }
       }
     }
   },
